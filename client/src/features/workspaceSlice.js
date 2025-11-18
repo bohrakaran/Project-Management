@@ -1,11 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { dummyWorkspaces } from "../assets/assets";
 
+export const fetchWorkspaces = createAsyncThunk('workspace/fetchWorkspaces', 
+    async({getToken}) => {
+        try {
+            
+        } catch (error) {
+            
+        }
+    })
 const initialState = {
-    workspaces: dummyWorkspaces || [],
-    currentWorkspace: dummyWorkspaces[1],
+    workspaces: [],
+    currentWorkspace: null,
     loading: false,
 };
+
 
 const workspaceSlice = createSlice({
     name: "workspace",
@@ -103,7 +112,11 @@ const workspaceSlice = createSlice({
             );
         }
 
+    },
+    extraReducers: (builder)=>{
+        builder.addCase()
     }
+
 });
 
 export const { setWorkspaces, setCurrentWorkspace, addWorkspace, updateWorkspace, deleteWorkspace, addProject, addTask, updateTask, deleteTask } = workspaceSlice.actions;
