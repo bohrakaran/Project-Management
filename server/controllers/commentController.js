@@ -4,7 +4,7 @@ import prisma from "../configs/prisma.js";
 // Add Comment
 export const addComment = async (req, res) =>{
     try {
-       const {userId} = await req.authd();
+       const {userId} = await req.auth();
        const {content, taskId} = req.body
        
        // check if user is projectmember
@@ -45,7 +45,7 @@ export const getTaskComments = async (req, res)=>{
     try {
         const {taskId} = req.params;
         const comments = await prisma.comment.findMany({
-            where: {taksId}, include: {user: true}
+            where: {taskId}, include: {user: true}
         })
 
         res.json({comments})

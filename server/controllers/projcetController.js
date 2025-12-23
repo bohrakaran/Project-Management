@@ -46,14 +46,14 @@ export const createProject = async(req, res) =>{
        if(team_members?.length > 0){
         const membersToAdd = []
         workspace.members.forEach(member =>{
-            if(team_members.include(member.user.email)){
+            if(team_members.includes(member.user.email)){
                 membersToAdd.push(member.user.id)
             }    
         })
           await prisma.projectMember.createMany({
             data: membersToAdd.map(memberId => ({
                 projectId: project.id,
-                uerId: memberId
+                userId: memberId
             }))
           })
 
@@ -107,7 +107,7 @@ export const updateProject = async(req, res) =>{
 
        }
 
-       const project = await prisma.project.updeate({
+       const project = await prisma.project.update({
         where: {id},
         data: {
             workspaceId,
